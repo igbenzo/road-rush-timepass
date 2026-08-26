@@ -1,0 +1,559 @@
+:root {
+  --bg-void: #06071a;
+  --bg-deep: #14103a;
+  --bg-purple: #341a52;
+  --neon-pink: #ff2e88;
+  --neon-cyan: #00e5ff;
+  --neon-orange: #ff7a3d;
+  --neon-yellow: #ffd23f;
+  --asphalt: #17142b;
+  --panel-glass: rgba(20, 16, 45, 0.55);
+  --panel-border: rgba(0, 229, 255, 0.35);
+  --text-dim: #9d95c9;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', 'Trebuchet MS', Arial, sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 50% 0%, #241350, var(--bg-void) 70%);
+  color: #fff;
+  overflow: hidden;
+}
+
+#gameWrapper {
+  position: relative;
+  width: min(420px, 94vw);
+  aspect-ratio: 420 / 640;
+  height: auto;
+  max-height: 94vh;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 2px rgba(0, 229, 255, 0.4),
+    0 0 0 6px rgba(255, 46, 136, 0.15),
+    0 0 60px rgba(0, 229, 255, 0.25),
+    0 25px 70px rgba(0,0,0,0.7);
+}
+
+.screen {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background:
+    radial-gradient(ellipse at 50% -10%, rgba(255, 46, 136, 0.25), transparent 55%),
+    linear-gradient(180deg, var(--bg-deep), var(--bg-void) 65%);
+  padding: 24px;
+}
+
+.hidden { display: none !important; }
+
+/* ============ START SCREEN ============ */
+.bgLines {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0, 229, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 229, 255, 0.08) 1px, transparent 1px);
+  background-size: 36px 36px;
+  transform: perspective(300px) rotateX(55deg) scale(2.2) translateY(20%);
+  transform-origin: bottom;
+  animation: gridScroll 3s linear infinite;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+@keyframes gridScroll {
+  from { background-position: 0 0, 0 0; }
+  to { background-position: 0 36px, 0 0; }
+}
+
+.title {
+  font-size: 46px;
+  font-weight: 900;
+  letter-spacing: 5px;
+  font-style: italic;
+  background: linear-gradient(90deg, var(--neon-pink), var(--neon-orange), var(--neon-yellow));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 14px rgba(255, 46, 136, 0.7)) drop-shadow(0 0 30px rgba(255, 122, 61, 0.4));
+  margin-bottom: 6px;
+  z-index: 1;
+}
+
+.subtitle {
+  color: var(--neon-cyan);
+  letter-spacing: 3px;
+  margin-bottom: 26px;
+  z-index: 1;
+  font-size: 12px;
+  text-transform: uppercase;
+  text-shadow: 0 0 10px rgba(0, 229, 255, 0.6);
+}
+
+.controlsBox {
+  background: var(--panel-glass);
+  backdrop-filter: blur(6px);
+  border: 1px solid var(--panel-border);
+  border-radius: 12px;
+  padding: 16px 26px;
+  margin-bottom: 22px;
+  z-index: 1;
+  min-width: 240px;
+  box-shadow: 0 0 20px rgba(0, 229, 255, 0.08) inset;
+}
+
+.controlsBox h3 {
+  color: var(--neon-cyan);
+  font-size: 12px;
+  letter-spacing: 3px;
+  margin-bottom: 10px;
+  text-shadow: 0 0 8px rgba(0, 229, 255, 0.5);
+}
+
+.controlsBox ul {
+  list-style: none;
+  text-align: left;
+}
+
+.controlsBox li {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 13px;
+  color: #d5d8e2;
+  padding: 5px 0;
+}
+
+.key {
+  background: rgba(0, 229, 255, 0.1);
+  border: 1px solid var(--neon-cyan);
+  border-radius: 5px;
+  padding: 2px 8px;
+  font-weight: bold;
+  color: var(--neon-cyan);
+  font-size: 11px;
+  white-space: nowrap;
+  font-family: 'Consolas', 'Courier New', monospace;
+}
+
+.bestScoreDisplay {
+  font-size: 13px;
+  letter-spacing: 2px;
+  color: var(--text-dim);
+  margin-bottom: 22px;
+  z-index: 1;
+}
+
+.bestScoreDisplay span {
+  color: var(--neon-yellow);
+  font-weight: bold;
+  text-shadow: 0 0 10px rgba(255, 210, 63, 0.6);
+}
+
+/* ============ BUTTONS ============ */
+.btn {
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+  z-index: 1;
+  font-style: italic;
+}
+
+.btn-primary {
+  background: linear-gradient(90deg, var(--neon-pink), var(--neon-orange));
+  color: #0c0716;
+  padding: 14px 44px;
+  font-size: 15px;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.15) inset, 0 6px 0 #9c1257, 0 10px 28px rgba(255, 46, 136, 0.5);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+}
+
+.btn-primary:active {
+  transform: translateY(2px);
+  box-shadow: 0 3px 0 #9c1257;
+}
+
+.btn-secondary {
+  background: transparent;
+  border: 2px solid var(--neon-cyan);
+  color: var(--neon-cyan);
+  padding: 10px 30px;
+  font-size: 12px;
+  margin-top: 12px;
+  text-shadow: 0 0 6px rgba(0,229,255,0.5);
+}
+
+.btn-secondary:hover {
+  background: rgba(0, 229, 255, 0.1);
+  box-shadow: 0 0 16px rgba(0, 229, 255, 0.4);
+}
+
+.btn-small {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--panel-glass);
+  color: var(--neon-cyan);
+  font-size: 15px;
+  border: 1px solid var(--panel-border);
+  z-index: 5;
+  backdrop-filter: blur(4px);
+}
+
+/* ============ GAME SCREEN ============ */
+#gameScreen {
+  padding: 0;
+  display: block;
+  background: var(--asphalt);
+}
+
+#gameCanvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--asphalt);
+  touch-action: none;
+}
+
+#hud {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 12px;
+  pointer-events: none;
+  z-index: 4;
+  font-family: 'Consolas', 'Courier New', monospace;
+}
+
+.hudTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.hudItem {
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  color: var(--neon-cyan);
+  text-align: center;
+  line-height: 1.5;
+  background: var(--panel-glass);
+  border: 1px solid var(--panel-border);
+  border-radius: 8px;
+  padding: 5px 10px;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 0 12px rgba(0,229,255,0.12);
+}
+
+.hudItem span {
+  font-size: 15px;
+  color: #fff;
+  font-weight: bold;
+  text-shadow: 0 0 8px rgba(255,255,255,0.4);
+}
+
+.hudBottom {
+  position: absolute;
+  bottom: 14px;
+  left: 14px;
+  right: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.speedBox {
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  color: var(--neon-orange);
+  line-height: 1.4;
+  background: var(--panel-glass);
+  border: 1px solid rgba(255, 122, 61, 0.4);
+  border-radius: 8px;
+  padding: 6px 12px;
+  backdrop-filter: blur(4px);
+}
+
+.speedBox span {
+  font-size: 22px;
+  color: #fff;
+  font-weight: 900;
+  text-shadow: 0 0 10px rgba(255, 122, 61, 0.6);
+}
+
+.nitroBox {
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  color: var(--neon-pink);
+  text-align: right;
+  background: var(--panel-glass);
+  border: 1px solid rgba(255, 46, 136, 0.4);
+  border-radius: 8px;
+  padding: 6px 12px;
+  backdrop-filter: blur(4px);
+}
+
+.nitroBarOuter {
+  width: 110px;
+  height: 10px;
+  background: rgba(0,0,0,0.5);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 6px;
+  margin-top: 5px;
+  overflow: hidden;
+}
+
+#nitroBarInner {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink));
+  border-radius: 6px;
+  transition: width 0.1s linear;
+  box-shadow: 0 0 10px rgba(255, 46, 136, 0.8);
+}
+
+/* ============ COMBO ============ */
+#comboIndicator {
+  position: absolute;
+  top: 74px;
+  left: 50%;
+  transform: translateX(-50%) scale(1);
+  background: linear-gradient(90deg, var(--neon-pink), var(--neon-yellow));
+  color: #16081f;
+  font-weight: 900;
+  font-size: 14px;
+  letter-spacing: 1.5px;
+  font-style: italic;
+  padding: 5px 18px;
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(255, 46, 136, 0.7);
+  z-index: 4;
+  animation: comboPop 0.35s ease;
+  pointer-events: none;
+  font-family: 'Consolas', monospace;
+}
+
+@keyframes comboPop {
+  0% { transform: translateX(-50%) scale(0.6); opacity: 0; }
+  60% { transform: translateX(-50%) scale(1.15); opacity: 1; }
+  100% { transform: translateX(-50%) scale(1); opacity: 1; }
+}
+
+/* ============ OVERLAYS ============ */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(6, 7, 26, 0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 6;
+}
+
+.overlay h2 {
+  font-size: 30px;
+  letter-spacing: 4px;
+  font-style: italic;
+  color: var(--neon-cyan);
+  margin-bottom: 22px;
+  text-shadow: 0 0 16px rgba(0, 229, 255, 0.6);
+}
+
+#crashFlash {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 46, 136, 0.35);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 5;
+}
+
+#crashFlash.flashActive {
+  animation: flash 0.35s ease-out;
+}
+
+@keyframes flash {
+  0% { opacity: 0.7; }
+  100% { opacity: 0; }
+}
+
+.shake {
+  animation: shakeAnim 0.35s ease-in-out;
+}
+
+@keyframes shakeAnim {
+  0%, 100% { transform: translate(0, 0); }
+  20% { transform: translate(-6px, 4px); }
+  40% { transform: translate(6px, -4px); }
+  60% { transform: translate(-4px, -6px); }
+  80% { transform: translate(4px, 6px); }
+}
+
+/* ============ GAME OVER SCREEN ============ */
+.gameOverTitle {
+  font-size: 36px;
+  background: linear-gradient(90deg, var(--neon-pink), var(--neon-orange));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 14px rgba(255, 46, 136, 0.6));
+}
+
+.finalScoreBox {
+  margin: 22px 0 30px;
+}
+
+.finalScoreBox p {
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  color: var(--text-dim);
+  margin-top: 8px;
+}
+
+.finalScoreBox h2 {
+  font-size: 48px;
+  color: var(--neon-yellow);
+  margin: 6px 0;
+  text-shadow: 0 0 20px rgba(255, 210, 63, 0.5);
+  font-family: 'Consolas', monospace;
+}
+
+.newBestTag {
+  color: var(--neon-cyan) !important;
+  font-weight: bold;
+  font-size: 13px !important;
+  text-shadow: 0 0 10px rgba(0, 229, 255, 0.6);
+  animation: pulseTag 1s ease-in-out infinite;
+}
+
+@keyframes pulseTag {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* ============ TOUCH CONTROLS (mobile) ============ */
+.touchControls {
+  display: none; /* shown only when body has .touch-device */
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  right: 12px;
+  justify-content: space-between;
+  align-items: flex-end;
+  z-index: 7;
+  pointer-events: none;
+}
+
+body.touch-device .touchControls {
+  display: flex;
+}
+
+.touchLeftGroup {
+  display: flex;
+  gap: 10px;
+  pointer-events: auto;
+}
+
+.touchRightGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  pointer-events: auto;
+}
+
+.touchPedals {
+  display: flex;
+  gap: 10px;
+}
+
+.touchBtn {
+  border: none;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+  font-weight: 900;
+  letter-spacing: 1px;
+  color: #fff;
+  background: var(--panel-glass);
+  border: 1.5px solid var(--panel-border);
+  backdrop-filter: blur(4px);
+  transition: transform 0.08s ease, background 0.08s ease;
+}
+
+.touchBtn:active {
+  transform: scale(0.92);
+  background: rgba(0, 229, 255, 0.25);
+}
+
+.touchBtnLane {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  font-size: 20px;
+  color: var(--neon-cyan);
+  box-shadow: 0 0 14px rgba(0, 229, 255, 0.25);
+}
+
+.touchBtnPedal {
+  width: 66px;
+  height: 50px;
+  border-radius: 10px;
+  font-size: 11px;
+  color: #fff;
+}
+
+.touchBtnGas {
+  border-color: rgba(57, 255, 136, 0.5);
+  color: #39ff88;
+  box-shadow: 0 0 14px rgba(57, 255, 136, 0.2);
+}
+
+.touchBtnPedal:not(.touchBtnGas) {
+  border-color: rgba(255, 46, 136, 0.5);
+  color: #ff2e88;
+  box-shadow: 0 0 14px rgba(255, 46, 136, 0.2);
+}
+
+.touchBtnNitro {
+  width: 142px;
+  height: 40px;
+  border-radius: 10px;
+  font-size: 12px;
+  background: linear-gradient(90deg, rgba(0,229,255,0.25), rgba(255,46,136,0.25));
+  color: #fff;
+  box-shadow: 0 0 16px rgba(255, 46, 136, 0.3);
+}
+
+/* Hide keyboard-only controls box on touch devices to save space, show a shorter tip instead */
+body.touch-device .controlsBox ul li.kbOnly {
+  display: none;
+}

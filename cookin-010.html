@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ROAD RUSH</title>
+<link rel="stylesheet" href="cookin-010.css" />
+</head>
+<body>
+
+  <div id="gameWrapper">
+
+    <!-- ===================== START SCREEN ===================== -->
+    <div id="startScreen" class="screen">
+      <div class="bgLines"></div>
+      <h1 class="title">ROAD RUSH</h1>
+      <p class="subtitle">Dodge. Drift. Dominate.</p>
+
+      <div class="controlsBox">
+        <h3>CONTROLS</h3>
+        <ul>
+          <li><span class="key">W / ↑</span> Accelerate</li>
+          <li><span class="key">S / ↓</span> Brake</li>
+          <li><span class="key">A / ←</span> Move Left</li>
+          <li><span class="key">D / →</span> Move Right</li>
+          <li><span class="key">SPACE</span> Nitro Boost</li>
+        </ul>
+      </div>
+
+      <div class="bestScoreDisplay">
+        BEST SCORE: <span id="startBestScore">0</span>
+      </div>
+
+      <button id="startBtn" class="btn btn-primary">START GAME</button>
+    </div>
+
+    <!-- ===================== GAME SCREEN ===================== -->
+    <div id="gameScreen" class="screen hidden">
+      <canvas id="gameCanvas" width="420" height="640"></canvas>
+
+      <!-- HUD -->
+      <div id="hud">
+        <div class="hudTop">
+          <div class="hudItem">SCORE<br /><span id="scoreVal">000000</span></div>
+          <div class="hudItem">LAP<br /><span id="lapVal">1/3</span></div>
+          <div class="hudItem">LIVES<br /><span id="livesVal">❤️❤️❤️</span></div>
+        </div>
+        <div class="hudBottom">
+          <div class="speedBox">
+            SPEED<br /><span id="speedVal">0</span> KM/H
+          </div>
+          <div class="nitroBox">
+            NITRO
+            <div class="nitroBarOuter">
+              <div id="nitroBarInner"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="comboIndicator" class="hidden">COMBO x<span id="comboVal">1</span></div>
+
+      <button id="pauseBtn" class="btn btn-small">⏸</button>
+
+      <!-- Pause Overlay -->
+      <div id="pauseOverlay" class="overlay hidden">
+        <h2>PAUSED</h2>
+        <button id="resumeBtn" class="btn btn-primary">RESUME</button>
+        <button id="restartFromPauseBtn" class="btn btn-secondary">RESTART</button>
+      </div>
+
+      <!-- Crash Flash -->
+      <div id="crashFlash"></div>
+
+      <!-- Touch Controls (shown only on touch devices) -->
+      <div id="touchControls" class="touchControls">
+        <div class="touchLeftGroup">
+          <button id="btnLeft" class="touchBtn touchBtnLane">◀</button>
+          <button id="btnRight" class="touchBtn touchBtnLane">▶</button>
+        </div>
+        <div class="touchRightGroup">
+          <button id="btnNitro" class="touchBtn touchBtnNitro">NITRO</button>
+          <div class="touchPedals">
+            <button id="btnBrake" class="touchBtn touchBtnPedal">BRAKE</button>
+            <button id="btnGas" class="touchBtn touchBtnPedal touchBtnGas">GAS</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== GAME OVER SCREEN ===================== -->
+    <div id="gameOverScreen" class="screen hidden">
+      <h1 class="title gameOverTitle">GAME OVER</h1>
+      <div class="finalScoreBox">
+        <p>FINAL SCORE</p>
+        <h2 id="finalScoreVal">0</h2>
+        <p id="newBestTag" class="newBestTag hidden">🏆 NEW BEST SCORE!</p>
+        <p>BEST SCORE: <span id="finalBestVal">0</span></p>
+      </div>
+      <button id="restartBtn" class="btn btn-primary">RACE AGAIN</button>
+    </div>
+
+  </div>
+
+  <script src="cookin-010.js"></script>
+</body>
+</html>
